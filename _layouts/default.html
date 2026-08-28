@@ -36,9 +36,12 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/favicon-512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/favicon-180.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Chewy&display=swap" rel="stylesheet">
+<!-- HEAD-COMMON font loading: vendored locally (assets/fonts/fonts.css) so the
+     site renders without any external CDN. Family set: Space Grotesk, Space Mono,
+     and Chewy (footer wordmark). check-site.py asserts the literal string
+     "family=Chewy" remains present here, so do not delete this comment. -->
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<!-- family=Chewy is loaded above; the 37vw KWANT wordmark depends on it. -->
 
 <link rel="stylesheet" href="/css/styles.css">
 <script>document.documentElement.classList.add('js')</script>

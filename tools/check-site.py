@@ -449,6 +449,12 @@ def check_assets(sources):
         return 0
     haystack = LAYOUT.read_text(encoding="utf-8")
     haystack += (ROOT / "css" / "styles.css").read_text(encoding="utf-8")
+    # Vendored webfonts live in assets/fonts/fonts.css (local @font-face rules
+    # that reference the woff2 files by name). Without it in the haystack every
+    # vendored .woff2 reads as an orphan, even though fonts.css wires them up.
+    fonts_css = ROOT / "assets" / "fonts" / "fonts.css"
+    if fonts_css.exists():
+        haystack += fonts_css.read_text(encoding="utf-8")
     for path in sources:
         haystack += sources[path]
     for js in sorted((ROOT / "js").glob("*.js")):
