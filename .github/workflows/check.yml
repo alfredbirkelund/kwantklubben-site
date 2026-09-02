@@ -36,7 +36,7 @@ jobs:
         run: |
           set -e
           fail=0
-          for p in index.html about/index.html projects/index.html partners/index.html; do
+          for p in index.html about/index.html research/index.html partners/index.html; do
             f="_site/$p"
             [ -f "$f" ] || { echo "FAIL: $f was not built"; fail=1; continue; }
 
