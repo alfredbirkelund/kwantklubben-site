@@ -11,23 +11,17 @@ _layouts/default.html the <head>, nav, footer and scripts every page shares.
                       ONE copy — GitHub Pages assembles the pages with Jekyll.
 _config.yml           build config: what stays out of the published site.
 
-index.html            landing — hero board, the loop, projects teaser, join
+index.html            landing — volatility surface, the loop, research teaser, join
 about/index.html      what the klub is, the process in full, AI, joining
-projects/index.html   the library, how publishing works, what counts
+research/index.html   the library, how publishing works, what counts
 partners/index.html   collaboration, talks, mentorship, co-designed events
 sponsors/index.html   redirect stub -> /partners/  (the old URL is on LinkedIn)
 
 css/styles.css        the original brand stylesheet (tokens + component idiom),
                       a short relaunch section, then the page-furniture classes
 js/kk-nav.js          the mobile drawer. Drives the `hidden` ATTRIBUTE, not a class.
-js/kk-bean.js         the hero board — one random walk per trading day, stacking
-                      into the distribution they are drawn from. No pegs:
-                      nothing collides with anything. Inert on any page with no
-                      #kk-bean, which is why it can sit in the shared block.
 assets/               logos, favicon set
 tools/check-site.py   the drift + invariant check. Read the next section.
-tools/probe-bean.html harness for the hero board: serve the repo and open it for
-                      39 checks against the rendered pixels.
 tools/serve-preview.py local preview with the Jekyll layout applied, for when
                       you have no Ruby. Read the next section.
 
@@ -38,8 +32,6 @@ EDITING.md            how to change the site from github.com. Start there.
 fragments, so a plain static server shows the raw `---` header and no nav. Run
 `python tools/serve-preview.py`, install Jekyll, or push to a branch — CI builds
 the site with the same action Pages uses and fails the PR if anything is wrong.
-For the hero board alone, `tools/probe-bean.html` runs standalone against
-`js/kk-bean.js` with no build.
 
 **Editing the copy?** See [EDITING.md](EDITING.md). The pages carry no inline
 styles — 173 were lifted into named classes so a page reads as its words plus a
@@ -110,109 +102,6 @@ with the real `jekyll-build-pages` action. If a future page needs a Liquid tag
 beyond those four, this renders it literally and the CI job's "unrendered Liquid"
 assertion is what catches it. Installing Ruby and running `jekyll serve` remains
 the higher-fidelity option.
-
-## The hero board
-
-`js/kk-bean.js` replaced the static `assets/hero-distribution.svg`. It runs the
-full width of the section with no card around it, so the gridpaper behind it
-doubles as its graph paper.
-
-*(An earlier draft of this file documented a `js/kk-tails.js` — a fat-tails chart
-on a log-odds axis. No such file has ever existed in this repo. What shipped is
-the board below. The fat-tails idea is still a good one and is still unbuilt.)*
-
-**Each bead is one trading day.** It opens at zero and takes twenty-five small
-moves through the session, so where it comes to rest is that day's close. Stack
-enough days and the pile is Binomial(25, p) — the distribution a day is drawn
-from. Months are just `days / 30`, a calendar convenience for reading the
-horizon; nothing in the model knows what a month is, and a *trading* month is
-nearer 21 days.
-
-There are **no pegs**, and that is deliberate rather than cosmetic. Nothing ever
-collided with anything: every outcome is drawn from a seeded LCG before the bead
-moves, so a peg field was 325 arc fills a frame asserting that the shape on the
-floor is produced by the apparatus. It is produced by adding up twenty-five
-independent days. What is drawn instead is the one true thing about the geometry
-— `binX(12.5)` **is** `cx`, so the column every walk opens in is exactly the 0σ
-tick it will be measured against, and a faint rule says so.
-
-- **solid bars** — days that actually closed there. A fill means "this happened".
-- **lime bars** — the same days, beyond 2σ *of a fair coin*
-- **ink outline** — the exact Binomial(25, p) at the odds currently set: where the
-  pile *would* sit if every day so far had run at these odds
-
-Because the bars butt together with no gap, the pile reads as one silhouette and
-the outline reads through it: **solid is what happened, hollow is what the model
-expected.** Where the outline rises above the fill, the model wanted more days
-there than arrived.
-
-**Mark type carries the layer, lightness carries the region, and hue is
-load-bearing on nothing.** Fill means measured, outline means implied — so the
-comparison survives greyscale, print, and all three dichromacies (ink-900 against
-lime-800 is 3.65:1 normally and never below 3.36:1 simulated). An earlier build
-had this exactly backwards: hue carried the layer and *alpha* carried the
-comparison, at 1.10–1.38:1, under bars that were painted on top of it. The
-outline is stroked **last**, over the bars, with a paper casing clipped to the
-bars so it survives crossing one. Both of those are load-bearing; `probe-bean.html`
-asserts them (`C4`).
-
-The x axis is in standard deviations of a **fair** coin and does not move when
-you move `P(up move)`. A ruler that slides with the thing it measures cannot show
-you that the thing moved. So "beyond 2σ" means *further than a market with no
-edge in it would have gone* — which is why the tail figure climbing as you raise
-the odds is the point rather than a rounding artefact. The slider is `P(up move)`
-and not `P(up day)`: it sets the odds on each of the 25 moves *inside* the
-session. The odds that the day itself closes up is a different number, one the
-walk produces rather than takes.
-
-`R = 25` is load-bearing. Bar edges sit at half-integers and σ is `sqrt(R)/2`, so
-a bar edge coincides with 2σ only when R is an odd perfect square. At 25: σ = 2.5,
-mean = 12.5, so ±2σ land on 7.5 and 17.5 — the shared edges of bins 7|8 and 17|18.
-Every bar is whole, no width is fudged, and no bar ever straddles the line.
-
-**Only bins 3–22 are drawn**, which is exactly **±4σ**. The full support is ±5σ,
-but the outermost σ at each end carried no visible mass at any odds the slider
-reaches — it was a flat rule running out to a tick, and it made the board about a
-quarter wider than the picture in it. 4σ is the right cut because it also lands on
-bin *edges* (12.5 ± 10 = 2.5 and 22.5), so the window is whole bars and its ends
-fall exactly on the −4σ and +4σ ticks. `dx` divides by the *drawn* bin count, so
-on a wide hero the 44px cap is what narrows the chart (20 × 44 = 880px), while a
-phone still spends its whole width and gets fatter bars for it.
-
-Everything outside the window is still simulated and still counted — in `N`, in
-the tail percentages, in the moments. It is simply not drawn. At p = 0.5 that is
-1.9 × 10⁻⁵ of the pile; at the 0.600 end of the slider the far right bins reach
-~4 × 10⁻⁴, so roughly one day in 2,300 lands beyond the frame. The printed figures
-stay complete.
-
-**One bead is one DAY.** The readout prints days and then `days / 30` months. The
-units here have been wrong before, in both directions, so if you touch the readout
-keep them straight — `probe-bean.html` asserts both numbers against the spoken
-description, which is the only place the units are stated in words.
-
-**The readout sits below the drawing, with the sliders, as one strip of chrome.**
-It used to be a single line of seven figures directly under the hero's call to
-action — a wall of small type in the worst place on the page. It is two blocks
-now: the four headline figures at the larger size, then the three `[z]`
-diagnostics a step down in the quieter grey, because those sit near their exact
-values and barely move. Everything in the strip, canvas *and* the DOM slider row,
-is set to the **chart's own edges** rather than the canvas padding — since the
-window narrowed to ±4σ the chart sits ~130px inside the text column, and three
-different left edges were stacking up.
-
-**The board is a fixed size.** Its height is one of two values, stepping at 560px,
-and the rows reserved for the readout are a constant per width bracket — *not* the
-number of rows it happened to wrap to. Both were previously derived, which meant
-the drawing resized as the window moved and jumped 16px the instant a counter grew
-a digit. The headline four always fit one row (at a 320px chart they are ~280px at
-12px, and the ladder can still step to 10); the diagnostics need two once the chart
-is narrow. If you add a metric, check it still fits the reserve rather than making
-the reserve follow it.
-
-Under `prefers-reduced-motion: reduce` it resolves 2,400 months at once, draws the
-finished board, and never calls `requestAnimationFrame` at all. `rAF` is throttled
-to a standstill in a background tab, so there is also a fallback that fills the
-board if five frames have not run after 2.2 seconds.
 
 ## Deploy
 

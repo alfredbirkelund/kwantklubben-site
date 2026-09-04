@@ -37,7 +37,7 @@ approximate and shift as copy changes — the banner is the reliable landmark.
 
 | Section | Line | What it is |
 |---|---|---|
-| `HERO` | 7 | Headline, the sentence under it, the two buttons, the bean board |
+| `HERO` | 7 | Headline, the sentence under it, the two buttons, the volatility surface |
 | `THE LOOP` | 33 | "From a question to something real" — the three numbered steps |
 | `PROJECTS` | 58 | "Nothing published yet" and the single placeholder card |
 | `JOIN` | 91 | "Bring a question" and the what-the-form-asks panel |
@@ -157,18 +157,9 @@ landing page carries its own teaser copy of the same card.
 CSS variables at the top of `css/styles.css` — `--ink-*`, `--paper-*`, `--lime-*`.
 Change it once there and it changes everywhere.
 
-**Change the hero board.** It is a canvas drawn by `js/kk-bean.js`, not markup.
-`tools/probe-bean.html` is its test harness: serve the repo and open
-`/tools/probe-bean.html` for 39 checks against the rendered pixels.
-
-Three things in there are easy to break and are asserted. **One bead is one
-trading day** — it takes 25 moves through the session and closes once — so the
-readout prints days and `days / 30` months. The **implied outline is stroked
-last, over the bars**: it is the layer the chart exists to compare against, and
-drawing it underneath hides it exactly where a comparison is possible. And the
-**board is a fixed size**, with a constant space reserved above it for the
-readout, so it does not resize under a dragged window or jump when a counter
-grows a digit.
+**Change the hero visual.** The hero is the implied-volatility surface, drawn by
+`js/kk-volsurface.js` (a self-contained 3D wireframe — no WebGL). It renders on
+the landing page only and is inert elsewhere.
 
 ---
 

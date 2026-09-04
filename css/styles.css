@@ -716,15 +716,6 @@ footer{ display:grid; }
 body{ min-height:100vh; display:flex; flex-direction:column; }
 main{ flex:1 0 auto; }
 
-/* --- hero board ---------------------------------------------------------
-   No card, no border, no shadow: the board sits directly on the gridpaper and
-   runs the full width of the section. The baseline the canvas draws for itself
-   is the only frame it gets, and the gridpaper reads as its graph paper.
-   Height is deliberately NOT set here — js/kk-bean.js derives it from the
-   measured width so the peg triangle stays in proportion, and a height in CSS
-   would fight it. */
-.kk-bean{ margin-top:clamp(28px,4vw,52px); }
-
 /* Grid items default to min-width:auto, so a track refuses to shrink below its
    content's min-content width — which once pushed the hero column to 388px at a
    375px viewport and put 44px of the page off-screen. */
