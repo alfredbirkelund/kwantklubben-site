@@ -564,7 +564,12 @@ footer{ display:grid; }
   /* flex-wrap is the no-JS fallback: without .js the links stay inline in the
      bar and it grows to two rows rather than overflowing the page sideways. */
   .kk-nav__inner{ padding:14px 16px; flex-wrap:wrap; }
-  .kk-nav__links{ gap:14px; flex-wrap:wrap; }
+  /* Full-width so the row spans the bar and the toggle can pin to the far
+     right rather than sitting up against the Join button. */
+  .kk-nav__links{ gap:14px; flex-wrap:wrap; width:100%; }
+  /* The hamburger pins to the right edge and matches the height of the
+     Contact / Join buttons beside it (34px) instead of the old 44px. */
+  .kk-nav__toggle{ margin-left:auto; width:34px; min-height:34px; }
 
   .js .kk-nav__toggle{ display:inline-flex; }
 
@@ -610,6 +615,11 @@ footer{ display:grid; }
   .kk-stats-grid{ grid-template-columns:repeat(2,1fr); gap:24px; }
   .kk-projects-grid{ grid-template-columns:1fr; }
   h1{ font-size:2.5rem !important; }
+
+  /* The hero's implied-volatility surface is a desktop ornament: it needs room
+     to breathe and drag-to-orbit is a mouse gesture, so it is dropped on
+     phones rather than squashed below the fold. Desktop is untouched. */
+  .kk-volsurface{ display:none; }
   .kk-footer__inner{ flex-direction:column; align-items:flex-start; }
 }
 
