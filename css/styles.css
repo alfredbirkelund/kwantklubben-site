@@ -791,6 +791,35 @@ main{ flex:1 0 auto; }
 .kk-band--rule{ border-bottom:2px solid var(--ink-800); }
 .kk-gridpaper--bare{ background:transparent; }
 
+/* --- event bar ---------------------------------------------------------
+   Temporary, site-wide announcement. Lime fill with 2px ink borders, matching
+   the brand's chunky idiom; sits above the sticky nav and scrolls away. The
+   CTA is the white secondary button so it pops against the lime. */
+.kk-eventbar{
+  background:var(--lime-500);
+  border-top:2px solid var(--ink-800);
+  border-bottom:2px solid var(--ink-800);
+}
+.kk-eventbar__inner{
+  max-width:1200px; margin:0 auto; padding:14px 28px;
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+}
+.kk-eventbar__body{ min-width:0; }
+.kk-eventbar__title{
+  font:var(--weight-bold) 19px/1.15 var(--font-display);
+  color:var(--ink-900); margin:0;
+}
+.kk-eventbar__meta{
+  font-family:var(--font-mono); font-size:13px; color:var(--ink-700);
+  margin:2px 0 0;
+}
+.kk-eventbar .kk-btn{ flex:none; }
+
+@media (max-width:700px){
+  .kk-eventbar__inner{ flex-direction:column; align-items:stretch; gap:12px; padding:16px; }
+  .kk-eventbar .kk-btn{ align-self:flex-start; }
+}
+
 /* --- section rhythm — vertical padding, paired with .kk-section --- */
 .kk-section--band{ padding-top:60px; padding-bottom:64px; }
 .kk-section--body{ padding-top:64px; padding-bottom:64px; }
