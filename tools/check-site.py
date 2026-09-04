@@ -472,6 +472,33 @@ def check_assets(sources):
     return failures
 
 
+def check_no_stray_markdown():
+    """No .md file may ship that isn't explicitly excluded from the build.
+
+    The site is pure HTML/CSS/JS; every .md in the repo is either excluded in
+    _config.yml (README, EDITING) or must be, or Jekyll publishes it as a page.
+    docs/ shipped silently until _config.yml excluded it — this catches the
+    next one.
+    """
+    failures = 0
+    cfg = (ROOT / "_config.yml").read_text(encoding="utf-8")
+    excluded = set(re.findall(r"^\s*-\s*(\S+?)\s*$", cfg, re.M))
+    for p in sorted(ROOT.rglob("*.md")):
+        if ".git" in p.parts or "_site" in p.parts:
+            continue
+        rel_p = rel(p)
+        if rel_p.startswith("_"):
+            continue  # underscore paths are excluded by Jekyll by default
+        if rel_p.startswith("."):
+            continue  # dot-paths too (e.g. the agent's own .hermes/ state)
+        if any(rel_p == e or rel_p.startswith(e.rstrip("/") + "/") for e in excluded):
+            continue
+        print("FAIL %s: .md file is not excluded from the build — add it to "
+              "_config.yml `exclude:` or move it under an underscore path" % rel_p)
+        failures += 1
+    return failures
+
+
 def check_links():
     """Every root-relative href in the shared nav resolves to a file that exists."""
     nav = LAYOUT.read_text(encoding="utf-8")
@@ -509,6 +536,7 @@ def main():
                 + check_css()
                 + check_discoverability()
                 + check_assets(sources)
+                + check_no_stray_markdown()
                 + check_links())
 
     # Print what opted out, so a page escaping the checks is visible in CI

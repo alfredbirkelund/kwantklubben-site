@@ -116,11 +116,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def serve_page(self, url_path):
         """True when this was an .html page we rendered ourselves."""
         clean = posixpath.normpath(urllib.parse.unquote(url_path))
-        if clean.endswith("/") or clean in ("", "."):
+        if url_path.endswith("/") or clean in ("", "."):
             clean = posixpath.join(clean, "index.html")
-        if url_path.endswith("/"):
-            clean = posixpath.join(posixpath.normpath(urllib.parse.unquote(url_path)),
-                                   "index.html")
         if not clean.endswith(".html"):
             return False
 
