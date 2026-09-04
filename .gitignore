@@ -2,6 +2,7 @@
 Thumbs.db
 .vscode/
 .idea/
+.hermes/
 
 # Hero sketch gallery — scratch, and now deleted. The rules stay so that a
 # future round of sketching cannot accidentally publish 16 unfinished concepts

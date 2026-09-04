@@ -48,7 +48,7 @@ jobs:
             grep -q 'id="kk-nav-panel"'          "$f" || { echo "FAIL: $f has no nav"; fail=1; }
             grep -q 'kk-footer-word'             "$f" || { echo "FAIL: $f has no footer wordmark"; fail=1; }
             grep -q 'family=Chewy'               "$f" || { echo "FAIL: $f lost the Chewy font"; fail=1; }
-            grep -q '/js/kk-bean.js'             "$f" || { echo "FAIL: $f has no scripts block"; fail=1; }
+            grep -q '/js/kk-nav.js'              "$f" || { echo "FAIL: $f is missing the scripts block (kk-nav.js)"; fail=1; }
             grep -q '<main id="main">'           "$f" || { echo "FAIL: $f has no main"; fail=1; }
 
             # unrendered Liquid reaching the output means a typo'd tag
@@ -64,7 +64,7 @@ jobs:
             || { echo "FAIL: sponsors redirect stub did not survive the build"; fail=1; }
 
           # repo furniture must not be published
-          for x in tools README.md EDITING.md; do
+          for x in tools README.md EDITING.md docs; do
             [ -e "_site/$x" ] && { echo "FAIL: _site/$x was published — check _config.yml exclude"; fail=1; }
           done
 

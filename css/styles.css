@@ -44,7 +44,7 @@
      inventory below — .kk-accent is the only rendered use on the site. */
   --lime-700: #79960A;
   /* Darker again, for SMALL lime text, which owes 4.5:1 rather than 3:1. Used by
-     the hero board's tail figures. 4.95:1. */
+     the nav hover (13px text). 4.95:1. */
   --lime-800: #5E7507;
 
   --coral-300: #FFC2B3;
@@ -895,7 +895,7 @@ footer{ background:var(--ink-900); border-top:2px solid var(--ink-700); color:va
 .kk-hero__partners a:hover{ border-bottom-color:var(--lime-600); }
 
 /* --- hero volatility surface ---
-   Sits bare on the gridpaper (no card, no border), matching the old bean board.
+   Sits bare on the gridpaper (no card, no border).
    js/kk-volsurface.js sizes the canvas from the container, so the container owns
    the height and the script owns the drawing. Grab/grabbing cue the drag-to-orbit. */
 .kk-volsurface{ position:relative; height:clamp(380px, 35vw, 470px); cursor:grab; }
