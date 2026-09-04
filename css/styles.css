@@ -501,12 +501,6 @@ section[id]{ scroll-margin-top:112px; }
 .kk-section{ max-width:1200px; margin:0 auto; padding-left:28px; padding-right:28px; }
 
 .kk-two-col{ display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
-.kk-two-col--join{ display:grid; grid-template-columns:1.2fr .8fr; gap:48px; align-items:center; }
-
-.kk-manifesto-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-left:var(--border-bold) solid var(--ink-800); }
-.kk-manifesto-grid > div{ border-right:var(--border-bold) solid var(--ink-800); padding:4px 22px 0; }
-
-.kk-stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
 
 .kk-projects-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 
@@ -609,10 +603,7 @@ footer{ display:grid; }
   .js .kk-nav__panel a:first-child{ border-top:none; }
 
   .kk-section{ padding-left:16px; padding-right:16px; }
-  .kk-two-col, .kk-two-col--join{ grid-template-columns:1fr; gap:32px; }
-  .kk-manifesto-grid{ grid-template-columns:repeat(2,1fr); }
-  .kk-manifesto-grid > div:nth-child(2n){ border-right:none; }
-  .kk-stats-grid{ grid-template-columns:repeat(2,1fr); gap:24px; }
+  .kk-two-col{ grid-template-columns:1fr; gap:32px; }
   .kk-projects-grid{ grid-template-columns:1fr; }
   h1{ font-size:2.5rem !important; }
 
@@ -719,12 +710,10 @@ main{ flex:1 0 auto; }
 /* Grid items default to min-width:auto, so a track refuses to shrink below its
    content's min-content width — which once pushed the hero column to 388px at a
    375px viewport and put 44px of the page off-screen. */
-.kk-two-col > *, .kk-two-col--join > *{ min-width:0; }
+.kk-two-col > *{ min-width:0; }
 
 /* --- the loop -----------------------------------------------------------
-   Same divided-grid idiom as .kk-manifesto-grid (which the House rules band
-   used), at three columns instead of four. Kept as its own class rather than a
-   modifier so the manifesto grid can be deleted without touching this. */
+   Divided-grid idiom at three columns instead of four. */
 .kk-loop-grid{
   display:grid; grid-template-columns:repeat(3,1fr); gap:0;
   border-left:var(--border-bold) solid var(--ink-800);
@@ -926,9 +915,6 @@ footer{ background:var(--ink-900); border-top:2px solid var(--ink-700); color:va
 .kk-sectionhead__title{ font:var(--weight-bold) 40px/1.05 var(--font-display); letter-spacing:-.02em; color:var(--ink-900); margin:0; }
 
 /* --- the join band --- */
-.kk-formcard{ background:var(--ink-700); }
-.kk-formcard__list{ font:var(--type-body-sm); color:var(--paper-100); margin:0; padding-left:18px; line-height:1.9; }
-.kk-formcard__note{ margin-top:16px; font-family:var(--font-mono); font-size:12px; color:var(--paper-400); }
 .kk-join__lead{ font:var(--type-body); font-size:18px; color:var(--paper-300); max-width:44ch; margin:0 0 28px; }
 .kk-join__title{ font:var(--weight-bold) 52px/1.0 var(--font-display); letter-spacing:-.03em; color:#fff; margin:0 0 18px; }
 .kk-overline--gap-md{ margin-bottom:14px; }
