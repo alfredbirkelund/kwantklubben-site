@@ -39,7 +39,7 @@ approximate and shift as copy changes — the banner is the reliable landmark.
 |---|---|---|
 | `HERO` | 7 | Headline, the sentence under it, the two buttons, the volatility surface |
 | `THE LOOP` | 33 | "From a question to something real" — the three numbered steps |
-| `PROJECTS` | 58 | "Nothing published yet" and the single placeholder card |
+| `RESEARCH` | 60 | "Recent Papers" teaser card and "View All Research" link |
 | `JOIN` | 91 | "Bring a question" and the what-the-form-asks panel |
 
 ### `about/index.html`
@@ -53,15 +53,14 @@ approximate and shift as copy changes — the banner is the reliable landmark.
 | `04 JOINING` | 75 | "All levels, genuinely" |
 | `JOIN` | 97 | Shared join band |
 
-### `projects/index.html`
+### `research/index.html`
 
 | Section | Line | What it is |
 |---|---|---|
-| `PAGE HEAD` | 7 | "Nothing published yet" |
-| `THE LIBRARY` | 21 | The placeholder project card |
-| `HOW PUBLISHING WORKS` | 44 | "Nothing goes public by accident" |
-| `WHAT COUNTS` | 70 | "Findings, tools, and dead ends" |
-| `JOIN` | 84 | Shared join band |
+| `PAGE HEAD` | 7 | "Published Research" |
+| `THE LIBRARY` | 18 | "01 / Published" and the single placeholder card |
+| `WHAT COUNTS` | 41 | "Strategies, tools, and falsified ideas" |
+| `JOIN` | 54 | "Come build a strategy" |
 
 ### `partners/index.html`
 
@@ -150,7 +149,7 @@ button, and in `index.html` / `partners/index.html` for the in-page buttons.
 **Change the contact address or the nav links.** `_layouts/default.html`, once.
 
 **Add a real project.** Copy the `kk-card` block inside `THE LIBRARY` in
-`projects/index.html`, drop the `kk-card--placeholder` class, and fill it in. The
+`research/index.html`, drop the `kk-card--placeholder` class, and fill it in. The
 landing page carries its own teaser copy of the same card.
 
 **Change a colour.** Do not touch hexes in the markup. The palette is a block of

@@ -37,7 +37,7 @@ the site with the same action Pages uses and fails the PR if anything is wrong.
 styles — 173 were lifted into named classes so a page reads as its words plus a
 class name, and `check-site.py` fails if one is added back.
 
-Nav is **About · Projects · Partners**, plus a Contact button (a `mailto:`, not a page — there was nothing a contact page would hold that the mailto does not) and the Join button pointing straight at the application form.
+Nav is **About · Research · Partners**, plus a Contact button (a `mailto:`, not a page — there was nothing a contact page would hold that the mailto does not) and the Join button pointing straight at the application form.
 
 ## The style
 
