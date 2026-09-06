@@ -333,6 +333,8 @@ code, kbd, samp { font-family: var(--font-mono); }
 .kk-btn--sm{ font-size:var(--text-xs); padding:.42em .85em; border-radius:var(--radius-sm); }
 .kk-btn--md{ font-size:var(--text-sm); padding:.6em 1.1em; }
 .kk-btn--lg{ font-size:var(--text-md); padding:.72em 1.4em; }
+.kk-btn--icon{ display:inline-flex; align-items:center; justify-content:center; padding:.72em .9em; }
+.kk-btn--icon svg{ display:block; fill:currentColor; width:22px; height:22px; }
 
 .kk-btn--primary{ --_bg:var(--lime-500); --_fg:var(--ink-900); --_bd:var(--ink-800); }
 .kk-btn--primary:hover{ --_bg:var(--lime-400); }
@@ -733,6 +735,10 @@ main{ flex:1 0 auto; }
 .kk-footer__links{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
 .kk-footer__links a{ color:var(--paper-100); text-decoration:none; border-bottom:1.5px solid var(--lime-500); padding-bottom:1px; }
 .kk-footer__links a:hover{ color:var(--lime-400); border-bottom-color:var(--lime-400); }
+.kk-footer__links a.kk-footer__icon{ border-bottom:none; display:inline-flex; align-items:center; justify-content:center; color:var(--paper-100); padding:2px; }
+.kk-footer__links a.kk-footer__icon:hover{ color:var(--lime-400); }
+.kk-footer__links a.kk-footer__icon svg{ width:20px; height:20px; fill:currentColor; transition:transform .15s ease; }
+.kk-footer__links a.kk-footer__icon:hover svg{ transform:translateY(-1px); }
 
 /* --- keyboard skip ------------------------------------------------------
    Five tabbable controls sit in the sticky bar ahead of <main> on every page. */
@@ -898,7 +904,7 @@ footer{ background:var(--ink-900); border-top:2px solid var(--ink-700); color:va
    Sits bare on the gridpaper (no card, no border).
    js/kk-volsurface.js sizes the canvas from the container, so the container owns
    the height and the script owns the drawing. Grab/grabbing cue the drag-to-orbit. */
-.kk-volsurface{ position:relative; height:clamp(380px, 35vw, 470px); cursor:grab; }
+.kk-volsurface{ position:relative; height:clamp(450px, 40vw, 550px); cursor:grab; }
 .kk-volsurface:active{ cursor:grabbing; }
 .kk-volsurface canvas{ display:block; width:100%; height:100%; }
 

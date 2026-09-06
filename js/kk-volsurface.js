@@ -14,7 +14,7 @@
    turntable yaw about the vertical: strike goes down-right, maturity down-left,
    vol straight UP — so the vol axis is always a clean vertical line. The view
    spins slowly when idle and pauses while you hover or drag (drag to orbit).
-   Hovering shows a lime dot + a mono tag reading K / T / σ. Under
+   Hovering shows a lime dot on the nearest vertex. Under
    prefers-reduced-motion the surface is drawn static and still draggable.
    Returns immediately where there is no #kk-volsurface. */
 (function () {
@@ -91,7 +91,7 @@
 
   // Title + caption band reserved at the top of the graphic (drawn on canvas so
   // the hero keeps one self-contained element and its height does not grow).
-  var HEADER = 76;
+  var HEADER = 124;
   var header = 0;        // animated current band height (eases 0 <-> HEADER)
   var axisP = 0;         // axis extension progress: 0 hidden, 1 fully extended
   var TITLE = 'Implied Volatility Surface';
@@ -118,7 +118,9 @@
 
   var SCALE = 1, OX = 0, OY = 0;
   function setView() {
-    SCALE = Math.min(W, H - header) * 0.6;
+    var hFrac = Math.min(1, Math.max(0, header / HEADER));
+    var mult = 0.78 - 0.16 * hFrac; // 0.78 idle -> 0.62 hovered
+    SCALE = Math.min(W, H - header) * mult;
     OX = W * 0.5;
     // Centre the graph (its vertical mid-point sits at sy ≈ −0.435) in the
     // space below the header, so there is no dead gap between caption and plot.
@@ -175,14 +177,14 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'alphabetic';
       ctx.fillStyle = INK_900;
-      ctx.font = '700 16px ' + DISPLAY;
-      ctx.fillText(TITLE, W / 2, 24);
+      ctx.font = '700 23px ' + DISPLAY;
+      ctx.fillText(TITLE, W / 2, 28);
 
       ctx.fillStyle = INK;
-      ctx.font = '400 12px ' + DISPLAY;
+      ctx.font = '400 15px ' + DISPLAY;
       var capLines = wrap(CAPTION, W * 0.92);
       for (var li = 0; li < capLines.length; li++) {
-        ctx.fillText(capLines[li], W / 2, 46 + li * 16);
+        ctx.fillText(capLines[li], W / 2, 54 + li * 20);
       }
       ctx.textAlign = 'start';
       ctx.globalAlpha = 1;
@@ -270,31 +272,6 @@
         ctx.beginPath();
         ctx.arc(dotx, doty, 3.5, 0, Math.PI * 2);
         ctx.fill();
-
-        var K = 100 * Math.exp(xs[best.i]);
-        var T = ts[best.j];
-        var sig = v[best.j][best.i] * 100;
-        var label = 'K ' + K.toFixed(0) + '  ·  T ' + T.toFixed(2) + 'y  ·  σ ' + sig.toFixed(1) + '%';
-
-        ctx.font = '500 11px ' + MONO;
-        var tw = ctx.measureText(label).width;
-        var bx = (W - (tw + 20)) / 2, by = header + 10, bw = tw + 20, bh = 26, r = 3;
-        ctx.fillStyle = PAPER;
-        ctx.strokeStyle = INK_800;
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(bx + r, by);
-        ctx.lineTo(bx + bw - r, by); ctx.arcTo(bx + bw, by, bx + bw, by + r, r);
-        ctx.lineTo(bx + bw, by + bh - r); ctx.arcTo(bx + bw, by + bh, bx + bw - r, by + bh, r);
-        ctx.lineTo(bx + r, by + bh); ctx.arcTo(bx, by + bh, bx, by + bh - r, r);
-        ctx.lineTo(bx, by + r); ctx.arcTo(bx, by, bx + r, by, r);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = INK_800;
-        ctx.textBaseline = 'middle';
-        ctx.fillText(label, bx + 10, by + bh / 2 + 0.5);
-        ctx.lineWidth = 1;
       }
     }
   }
