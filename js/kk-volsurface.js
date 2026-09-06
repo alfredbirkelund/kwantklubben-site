@@ -114,12 +114,12 @@
   /* Surface world box: strike/maturity X,Y ∈ [-S, S], vol Z ∈ [ZB, ZT].
      The axis frame is slightly larger (F) so the axes stand clear of the sheet,
      and the vol axis rises to FH. */
-  var S = 0.40, ZB = 0.06, ZT = 0.88, F = 0.50, FH = 0.95;
+  var S = 0.40, ZB = 0.06, ZT = 0.88, F = 0.50, FH = 0.92;
 
   var SCALE = 1, OX = 0, OY = 0;
   function setView() {
     var hFrac = Math.min(1, Math.max(0, header / HEADER));
-    var mult = 0.78 - 0.16 * hFrac; // 0.78 idle -> 0.62 hovered
+    var mult = 0.78 - 0.09 * hFrac; // 0.78 idle -> 0.69 hovered
     SCALE = Math.min(W, H - header) * mult;
     OX = W * 0.5;
     // Centre the graph (its vertical mid-point sits at sy ≈ −0.435) in the

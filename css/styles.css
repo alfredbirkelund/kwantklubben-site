@@ -904,7 +904,7 @@ footer{ background:var(--ink-900); border-top:2px solid var(--ink-700); color:va
    Sits bare on the gridpaper (no card, no border).
    js/kk-volsurface.js sizes the canvas from the container, so the container owns
    the height and the script owns the drawing. Grab/grabbing cue the drag-to-orbit. */
-.kk-volsurface{ position:relative; height:clamp(450px, 40vw, 550px); cursor:grab; }
+.kk-volsurface{ position:relative; height:clamp(450px, 40vw, 565px); cursor:grab; }
 .kk-volsurface:active{ cursor:grabbing; }
 .kk-volsurface canvas{ display:block; width:100%; height:100%; }
 
